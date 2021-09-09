@@ -12,6 +12,7 @@ export default function App() {
   const [addingEvent, setAddingEvent] = useState(false)
   const [eventAdded, setEventAdded] = useState(false)
   const [getItems, setGetItems] = useState(false)
+  const [eventDeleted, setEventDeleted] = useState(false)
   const baseUrl = 'http://ec2-13-51-252-148.eu-north-1.compute.amazonaws.com:5000'
 
   const currentDate = new Date()
@@ -36,7 +37,7 @@ export default function App() {
       })
     }
     getData()
-  }, [eventAdded, getItems])
+  }, [eventAdded, getItems, eventDeleted])
 
   const addingEventTime = (event) => {
     setAddingEvent(true)
@@ -51,7 +52,15 @@ export default function App() {
 
       {!addingEvent ?
         <View style={styles.container}>
-          <CalendarView events={events} mode={mode} addingEventTime={addingEventTime} setEventStart={setEventStart} />
+          <CalendarView 
+          events={events}
+           mode={mode} 
+           addingEventTime={addingEventTime} 
+           setEventStart={setEventStart}
+           eventDeleted={eventDeleted}
+           setEventDeleted={setEventDeleted}
+           baseUrl={baseUrl}
+            />
         </View> : null}
 
       {addingEvent ?
